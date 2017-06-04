@@ -9,17 +9,61 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var displayText: UILabel!
+    
+    var timer = Timer()
+    var time = 210
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        displayText.text = String(time)
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func playPrssd(_ sender: Any) {
+        
+        
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timeRunning), userInfo: nil, repeats: true)
+        
     }
-
-
+    
+    func timeRunning() {
+        
+        if time >= 0 {
+            displayText.text = String(time)
+            time -= 1
+        } else {
+            print("invalidated")
+            timer.invalidate()
+        }
+    }
+    @IBAction func pausePrssd(_ sender: Any) {
+        
+        
+        timer.invalidate()
+        
+        
+    }
+    @IBAction func incrTenPrssd(_ sender: Any) {
+        
+        time += 10
+        displayText.text = String(time)
+        
+    }
+    
+    @IBAction func decrTenPrssd(_ sender: Any) {
+        
+        if time > 10 {
+            time -= 10
+            displayText.text = String(time)
+        }
+        
+    }
+    @IBAction func resetPrssd(_ sender: Any) {
+        
+        time = 210
+        displayText.text = String(210)
+    }
 }
 
